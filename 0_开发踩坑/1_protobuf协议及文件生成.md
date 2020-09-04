@@ -33,7 +33,31 @@
   2. protoc执行命令的时候，就会到gopath/bin目录下，拿到执行文件。
   3. protoc-gen-go的版本，1.4和1.4之前是两套版本，需要注意。
 
-### 3.go代码生成
+
+
+### 3.protoc和protoc-gen-go产生的代码的区别
+
+- **命令来源/出处**
+
+  1. protoc 命令来自于 https://github.com/google/protobuf，可以产生序列化和反序列化的代码，无go相关代码。
+  2.  protoc-gen-go插件则来自于[https://github.com/golang/protob](https://github.com/golang/protobuf/)uf/protoc-gen-go， 可以产生go相关代码， 除上述序列化和反序列化代码之外， 还增加了一些通信公共库。
+
+  ```shell
+  # protoc编译方法
+  protoc --go_out=./go1/ ./proto/my.proto
+  
+  # protoc-gen-go编译方法
+  protoc --go_out=plugins=grpc:./go2/  ./proto/my.proto
+  ```
+
+- **生成go代码的不同原因**
+
+  1. protobuf版本，所影响的只有proto文件的语法，具体可参照[https://colobu.com/2019/10/03/protobuf-ultimate-tutorial-in-go/#%E7%BC%96%E7%A0%81](https://colobu.com/2019/10/03/protobuf-ultimate-tutorial-in-go/#编码)
+  2. proto-gen-go的版本，所影响的是生成go语言的版本，1.4和1.4之前是两套版本。
+
+
+
+### 4.go代码生成
 
 - 执行脚本
 
